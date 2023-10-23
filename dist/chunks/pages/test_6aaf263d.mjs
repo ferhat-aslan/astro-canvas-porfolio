@@ -1,4 +1,4 @@
-//import zrender from "https://cdnjs.cloudflare.com/ajax/libs/zrender/5.4.4/zrender.min.js";
+//import zrender from "zrender";
 var lastMouseDownPosition = [];
 var isMouseDown = false;
 window.addEventListener(
@@ -6,7 +6,7 @@ window.addEventListener(
   function () {
     const wh = window.innerWidth / 2;
     const hh = window.innerHeight / 2;
-    const zrender = window.zrender;
+ const zrender = window.zrender;
     const zGroup = new zrender.Group();
     console.log(zGroup);
     const app = document.getElementById("app");
