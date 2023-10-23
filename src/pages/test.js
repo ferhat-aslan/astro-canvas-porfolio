@@ -6,7 +6,7 @@ window.addEventListener(
   function () {
     const wh = window.innerWidth / 2;
     const hh = window.innerHeight / 2;
- const zrender = window.zrender;
+    const zrender = window.zrender;
     const zGroup = new zrender.Group();
     console.log(zGroup);
     const app = document.getElementById("app");
@@ -67,6 +67,46 @@ window.addEventListener(
       },
     });
     zGroup.add(kepler);
+
+    const projects = new zrender.Image({
+      style: {
+        x: wh - 1500,
+        y: 300,
+        image: "/yen.png",
+        width: 500,
+      },
+    });
+    zGroup.add(projects);
+
+    const hobby = new zrender.Image({
+      style: {
+        x: wh + 700,
+        y: 300,
+        image: "/yen2.png",
+        width: 500,
+      },
+    });
+    zGroup.add(hobby);
+
+    const techStacks = new zrender.Image({
+      style: {
+        x: wh + 1100,
+        y: -100,
+        image: "/yen3.png",
+        width: 500,
+      },
+    });
+    zGroup.add(techStacks);
+
+    const experiences = new zrender.Image({
+      style: {
+        x: wh - 900,
+        y: -280,
+        image: "/yen4.png",
+        width: 500,
+      },
+    });
+    zGroup.add(experiences);
 
     const about = new zrender.Image({
       style: {
