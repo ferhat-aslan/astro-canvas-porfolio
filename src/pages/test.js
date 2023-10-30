@@ -31,7 +31,7 @@ window.addEventListener(
     const astro = new zrender.Image({
       style: {
         x: wh +100,
-        y: hh -300,
+        y: hh -330,
         image: "/gif-7.gif",
         width: 150,
       },
@@ -297,29 +297,7 @@ window.addEventListener(
       })
 
 
-      return;
-      const e = ev.wheelDelta / 400;
-      const x = (zGroup.scale[0] += e);
-      const y = (zGroup.scale[1] += e);
-
-      if (x < scale || y < scale) {
-        zGroup.attr('scale', [scale, scale]);
-      } else if (x >= 2.5) {
-        // this.attr('scale', [2.5, 2.5]);
-      } else {
-        // 设置缩放中心
-        zGroup.attr('origin', [
-          ev.offsetX - zGroup.position[0],
-          ev.offsetY - zGroup.position[1],
-        ]);
-        // 如果 origin 发生变化，需要重新分解矩阵更新 position 和 scale
-        zGroup.update();
-        zGroup.decomposeTransform();
-        // 设置缩放大小
-        zGroup.attr('scale', [x, y]);
-      }
-      zGroup.dirty();
-      console.log(zGroup);
+  
     });
 
 
