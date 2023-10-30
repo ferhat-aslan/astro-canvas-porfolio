@@ -1,5 +1,5 @@
 //import zrender from "zrender";
-var lastMouseDownPosition = [];
+var lastMouseDownPosition = [], scale=1;
 var isMouseDown = false;
 window.addEventListener(
   "DOMContentLoaded",
@@ -128,6 +128,18 @@ window.addEventListener(
       },
     });
     zGroup.add(arrows);
+
+
+    const coding = new zrender.Image({
+      cursor: "pointer",
+      style: {
+        x: wh - 80,
+        y: hh - 200,
+        image: "/gif-t.gif",
+        width: 150,
+      },
+    });
+    zGroup.add(coding);
 
     var ferhatAslan = new zrender.Text({
       style: {
@@ -269,6 +281,47 @@ window.addEventListener(
  */
     zr.add(zGroup);
     app.children[0].style.cursor = "move";
+
+    window.addEventListener('mousewheel', function (ev)  {
+      var origin = zGroup.transformCoordToLocal(ev.offsetX, ev.offsetY);
+      if(ev.wheelDelta > 0) {
+          scale += 0.2;
+      } else {
+          scale -= 0.2;
+      }
+      scale = scale<1 ? 1 : scale;
+      zGroup.attr({
+          origin,
+          scale:[scale, scale],
+          position: [ev.offsetX - origin[0], ev.offsetY - origin[1]]
+      })
+
+
+      return;
+      const e = ev.wheelDelta / 400;
+      const x = (zGroup.scale[0] += e);
+      const y = (zGroup.scale[1] += e);
+
+      if (x < scale || y < scale) {
+        zGroup.attr('scale', [scale, scale]);
+      } else if (x >= 2.5) {
+        // this.attr('scale', [2.5, 2.5]);
+      } else {
+        // 设置缩放中心
+        zGroup.attr('origin', [
+          ev.offsetX - zGroup.position[0],
+          ev.offsetY - zGroup.position[1],
+        ]);
+        // 如果 origin 发生变化，需要重新分解矩阵更新 position 和 scale
+        zGroup.update();
+        zGroup.decomposeTransform();
+        // 设置缩放大小
+        zGroup.attr('scale', [x, y]);
+      }
+      zGroup.dirty();
+      console.log(zGroup);
+    });
+
 
     window.addEventListener("mousedown", function (ev) {
       lastMouseDownPosition = [ev.zrX, ev.zrY];
